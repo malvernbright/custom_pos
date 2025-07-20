@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Custom Receipt Template to show brands and custom order number-->
+<templates id="template" xml:space="preserve">
+    <!-- Override the OrderReceipt template to add brand information and custom order number -->
+    <t t-name="point_of_sale.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension">
+        <!-- Add custom order number after the order reference -->
+        <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="inside">
+            <t t-if="props.data.custom_order_number">
+                <div class="pos-receipt-custom-order-number" style="font-weight: bold; margin-bottom: 5px;">
+                    Custom Order #: <t t-esc="props.data.custom_order_number"/>
+                </div>
+            </t>
+        </xpath>
+
+        <xpath expr="//OrderWidget" position="replace">
+            <div class="orderlines" style="width: 100%; font-size: 9.5px; line-height: 1.5;">
+                <table class="pos-receipt-table" style="width: 100%; border-collapse: collapse;">
+                    <thead class="pos-receipt-table-header" style="background-color: #f8f9fa; border-bottom: 1px solid #000000ff;">
+                        <tr>
+                            <th class="pos-receipt-line-quantity">Qty</th>
+                            <th class="pos-receipt-line-name">Product</th>
+                            <th class="pos-receipt-line-brand">Brand</th>
+                            <th class="pos-receipt-line-price pos-receipt-right-align">Price</th>
+                            <th class="pos-receipt-line-customer-note">Customer Note</th>
+                            <th class="pos-receipt-line-pack-lot-lines">Pack/Lot Lines</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="props.data.orderlines" t-as="line" t-key="line_index">
+                            <tr class="pos-receipt-line">
+                                <!-- Quantity and Unit -->
+                                <td class="pos-receipt-line-quantity">
+                                    <t t-esc="line.qty"/>
+                                    <t t-if="line.unit !== 'Units'">
+                                        <t t-esc="line.unit"/>
+                                    </t>
+                                </td>
+
+                                <!-- Product Name -->
+                                <td class="pos-receipt-line-name">
+                                    <t t-esc="line.productName"/>
+                                </td>
+
+                                <!-- Brand Information (New Line) -->
+                                <t t-if="line.brand_id and line.brand_id.name">
+                                    <td class="pos-receipt-line-brand" style="margin-left: 20px; font-size: 10px; color: #666; font-style: italic;">
+                                        <t t-esc="line.brand_id.name"/>
+                                    </td>
+                                </t>
+                                <!-- Price -->
+                                <td class="pos-receipt-line-price pos-receipt-right-align">
+                                    <t t-esc="line.price"/>
+                                </td>
+                                <!-- Customer Note -->
+                                <t t-if="line.customerNote">
+                                    <div class="customer-note" style="margin-left: 20px; font-size: 10px; color: #666;">
+                            Note: <t t-esc="line.customerNote"/>
+                                    </div>
+                                </t>
+
+                                <!-- Pack Lot Lines -->
+                                <t t-if="line.pack_lot_lines">
+                                    <td t-foreach="line.pack_lot_lines" t-as="lot" t-key="lot.cid" style="margin-left: 20px; font-size: 10px;">
+                                        <t t-if="lot.order_line and lot.order_line.product and lot.order_line.product.tracking == 'lot'">
+                                            <t t-esc="lot.lot_name"/>
+                                        </t>
+                                        <t t-else="">
+                                SN: <t t-esc="lot.lot_name"/>
+                                        </t>
+                                    </td>
+                                </t>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </xpath>
+    </t>
+</templates>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Inherit point_of_sale.Orderline for showing brand in both order screen and receipt-->
+<templates id="template" xml:space="preserve">
+    <t t-name="Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('product-name')]" position="after">
+            <!-- Show brand if available -->
+            <div t-if="this.brandName" class="product-brand d-inline-block flex-grow-1 fw-normal pe-1 text-truncate">
+                <small class="text-muted">Brand: <span class="text-wrap" t-esc="this.brandName"/>
+                </small>
+            </div>
+
+            <!-- Fallback: Show brand from line data directly -->
+            <div t-if="!this.brandName and props.line.brand_id and props.line.brand_id.name" class="product-brand-alt d-inline-block flex-grow-1 fw-normal pe-1 text-truncate">
+                <small class="text-muted">Brand: <span class="text-wrap" t-esc="props.line.brand_id.name"/>
+                </small>
+            </div>
+        </xpath>
+    </t>
+</templates>

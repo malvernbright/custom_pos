@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Add custom order number field to POS Order form view -->
+        <record id="view_pos_order_form_custom" model="ir.ui.view">
+            <field name="name">pos.order.form.custom</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="custom_order_number"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Add custom order number field to POS Order tree view -->
+        <record id="view_pos_order_tree_custom" model="ir.ui.view">
+            <field name="name">pos.order.tree.custom</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="custom_order_number"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

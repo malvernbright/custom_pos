@@ -1,0 +1,66 @@
+<odoo>
+  <data>
+    <!-- Demo Brands -->
+    <record id="brand_samsung" model="product.brand">
+      <field name="name">Samsung</field>
+      <field name="description">Samsung Electronics</field>
+    </record>
+
+    <record id="brand_apple" model="product.brand">
+      <field name="name">Apple</field>
+      <field name="description">Apple Inc.</field>
+    </record>
+
+    <record id="brand_lg" model="product.brand">
+      <field name="name">LG</field>
+      <field name="description">LG Electronics</field>
+    </record>
+
+    <record id="brand_google" model="product.brand">
+      <field name="name">Google</field>
+      <field name="description">Google LLC</field>
+    </record>
+
+    <record id="brand_generic" model="product.brand">
+      <field name="name">Generic</field>
+      <field name="description">Generic Brand</field>
+    </record>
+
+    <!-- Demo Products with Brands -->
+    <record id="product_smartphone_samsung" model="product.template">
+      <field name="name">Samsung Galaxy S24</field>
+      <field name="brand_id" ref="brand_samsung"/>
+      <field name="categ_id" ref="product.product_category_5"/>
+      <field name="type">product</field>
+      <field name="list_price">899.00</field>
+      <field name="available_in_pos">True</field>
+    </record>
+
+    <record id="product_smartphone_apple" model="product.template">
+      <field name="name">iPhone 15</field>
+      <field name="brand_id" ref="brand_apple"/>
+      <field name="categ_id" ref="product.product_category_5"/>
+      <field name="type">product</field>
+      <field name="list_price">999.00</field>
+      <field name="available_in_pos">True</field>
+    </record>
+
+    <record id="product_tv_lg" model="product.template">
+      <field name="name">LG OLED TV 55-inch</field>
+      <field name="brand_id" ref="brand_lg"/>
+      <field name="categ_id" ref="product.product_category_5"/>
+      <field name="type">product</field>
+      <field name="list_price">1299.00</field>
+      <field name="available_in_pos">True</field>
+    </record>
+
+    <record id="product_pixel_7_pro" model="product.template">
+      <field name="name">Pixel 7 Pro</field>
+      <field name="brand_id" ref="brand_google"/>
+      <field name="categ_id" ref="product.product_category_5"/>
+      <field name="type">product</field>
+      <field name="list_price">599.00</field>
+      <field name="available_in_pos">True</field>
+    </record>
+  </data>
+</odoo>
